@@ -1,6 +1,6 @@
 import os
 import pygame
-from tkinter import Tk, Label, Button, Frame, filedialog, Listbox, scrolledtext
+from tkinter import Tk, Label, Button, Frame, filedialog, Listbox, scrolledtext, Canvas
 from PIL import Image, ImageTk
 from graphviz import Digraph
 import xml.etree.ElementTree as ET
@@ -14,7 +14,9 @@ class MusicPlayer:
         
         self.root = root
         self.root.title("Reproductor de Música")
-
+        self.root.geometry(f"{1065}x{636}+{100}+{50}")
+        self.root.config(bg="#09223b")        #w
+        
         # Inicializar Pygame
         pygame.init()
 
@@ -26,9 +28,75 @@ class MusicPlayer:
         self.songs = [Song("path1", "Song1"), Song("path2", "Song2"), Song("path3", "Song3")]
         self.current_song_index = 0
 
+
+# ************************************************************
+        backGroundInterfaz = "#0c131a"
+        colorFont = "white"
+        altoPanel = root.winfo_screenheight()
+        anchoPanel = root.winfo_screenwidth()
+        anchoPanel = anchoPanel - 583
+        # Crear el panel
+        panelMenu = Frame(root, bg="#041424", width="350", height=altoPanel)
+        panelMenu.place(x=0, y=70)
+        #botones dentro del panelMenu
+        boton = Button(panelMenu, text="PlayListalgo ", font=("", "16"),
+                          command=lambda num="playlist": accion_boton(num), bg="#0c131a", fg="white", width="29",
+                          height="1")
+        boton.place(x="0", y="0")
+
+        boton = Button(panelMenu, text="Biblioteca ", command=lambda num="playlist": accion_boton(num),
+                          font=("", "16"), width="29", height="1", bg="#0c131a", fg="white")
+        boton.place(x="0", y="42")
+
+
+        colorPanel = "#041424"
+
+        def crear_bordes_redondeados(canvas, x, y, width, height, radio, colorPanel):
+            # Crear bordes redondeados
+            canvas.create_arc(x, y, x + 2 * radio, y + 2 * radio, start=90, extent=90, fill=colorPanel,
+                              outline=colorPanel)
+            canvas.create_arc(x + width - 2 * radio, y, x + width, y + 2 * radio, start=0, extent=90, fill=colorPanel,
+                              outline=colorPanel)
+            canvas.create_arc(x, y + height - 2 * radio, x + 2 * radio, y + height, start=180, extent=90,
+                              fill=colorPanel, outline=colorPanel)
+            canvas.create_arc(x + width - 2 * radio, y + height - 2 * radio, x + width, y + height, start=270,
+                              extent=90, fill=colorPanel, outline=colorPanel)
+
+            # Crear segmentos rectos
+            canvas.create_rectangle(x + radio, y, x + width - radio, y + height, fill=colorPanel, outline=colorPanel)
+            canvas.create_rectangle(x, y + radio, x + width, y + height - radio, fill=colorPanel, outline=colorPanel)
+
+            # Configurar las dimensiones del panel
+
+        ancho_panel = 700
+        alto_panel = 500
+        radio_bordes = 5
+
+        # Crear el Canvas para el panel
+        panelImagenArtista = Canvas(root, width=ancho_panel, height=alto_panel, bg="#09223b", highlightthickness=0)
+        panelImagenArtista.place(x="360", y="70")
+
+        panelReproduccion = Canvas(root, width=ancho_panel, height=50, bg="#09223b", highlightthickness=0)
+        panelReproduccion.place(x="360", y="580")
+
+        panel_imagenCancion = Canvas(panelImagenArtista, width=ancho_panel, height=300, bg="#041424", highlightthickness=0)
+        panel_imagenCancion.place(x="9", y="150")
+
+
+        # Crear bordes redondeados en el Canvas
+        crear_bordes_redondeados(panelImagenArtista, 0, 0, ancho_panel, alto_panel, radio_bordes, colorPanel)
+        crear_bordes_redondeados(panelReproduccion, 0, 0, ancho_panel, alto_panel, radio_bordes, colorPanel)
+        crear_bordes_redondeados(panel_imagenCancion, 0, 0, 680, 300, radio_bordes, "#09223b")
+
+        # ************************************************************
+
+        # ************************************************************
+
+
         # Crear widgets LOGICA DEL FRONT
-        self.song_info_label = Label(root, text="Artista: - Álbum: - Canción: ")
-        self.song_info_label.pack()
+        self.song_info_label = Label(panelImagenArtista, text="Artista: - Álbum: - Canción: ", bg =backGroundInterfaz, fg =colorFont)
+        # self.song_info_label.pack()
+        self.song_info_label.place(x="10", y="450")
 
         self.song_image_label = Label(root)
         self.song_image_label.pack()
@@ -36,38 +104,41 @@ class MusicPlayer:
         self.controls_frame = Frame(root)
         self.controls_frame.pack()
 
-        self.play_button = Button(self.controls_frame, text="▶️ Play", command=self.play_pause_toggle)
-        self.play_button.grid(row=0, column=0)
+        self.play_button = Button(panelReproduccion, text="▶️ Play", command=self.play_pause_toggle)
+        # self.play_button.grid(row=0, column=0)
+        self.play_button.place(x="10", y="11")
 
-        self.pause_button = Button(self.controls_frame, text="⏸️ Pause", command=self.pause)
-        self.pause_button.grid(row=0, column=1)
+        self.pause_button = Button(panelReproduccion, text="⏸️ Pause", command=self.pause)
+        self.pause_button.place(x="80", y="11")
 
-        self.stop_button = Button(self.controls_frame, text="⏹️ Stop", command=self.stop)
-        self.stop_button.grid(row=0, column=2)
+        self.stop_button = Button(panelReproduccion, text="⏹️ Stop", command=self.stop)
+        self.stop_button.place(x="150", y="11")
 
-        self.prev_button = Button(self.controls_frame, text="⏮️ Prev", command=self.play_prev)
-        self.prev_button.grid(row=0, column=3)
+        self.prev_button = Button(panelReproduccion, text="⏮️ Prev", command=self.play_prev)
+        self.prev_button.place(x="220", y="11")
 
-        self.next_button = Button(self.controls_frame, text="⏭️ Next", command=self.play_next)
-        self.next_button.grid(row=0, column=4)
+        self.next_button = Button(panelReproduccion, text="⏭️ Next", command=self.play_next)
+        self.next_button.place(x="300", y="11")
 
-        self.choose_file_button = Button(root, text="Seleccionar archivo XML", command=self.load_playlist_from_xml)
-        self.choose_file_button.pack()
+        self.choose_file_button = Button(root, text="Seleccionar archivo XML", command=self.load_playlist_from_xml, font = ("", "14"), bg = backGroundInterfaz, fg=colorFont, width="20", height ="2")
+        self.choose_file_button.place(x="4", y="4")
 
-        self.playlist_label = Label(root, text="Lista de Reproducción")
-        self.playlist_label.pack()
+        self.playlist_label = Label(panelMenu, text="Lista de Reproducción", bg="black", fg=colorFont)
+        self.playlist_label.place(x="4", y="300")
 
-        self.playlist_box = Listbox(root, selectmode="SINGLE", activestyle="none")
-        self.playlist_box.pack()
+        self.playlist_box = Listbox(panelMenu, selectmode="SINGLE", activestyle="none", width="56", height="10", bg="#041424", fg=colorFont)
+        # self.playlist_box = Listbox(panelMenu, selectmode="SINGLE", activestyle="none")
+        self.playlist_box.place(x="5.3", y="325")
+        # self.playlist_box.pack()
 
-        self.stats_button = Button(root, text="Generar Estadísticas", command=self.generate_stats)
-        self.stats_button.pack()
+        self.stats_button = Button(panelMenu, text="Generar Estadísticas", command=self.generate_stats)
+        self.stats_button.place(x="4", y="100")
 
-        self.played_songs_label = Label(root, text="Canciones Reproducidas:")
-        self.played_songs_label.pack()
+        self.played_songs_label = Button(panelImagenArtista, text="Canciones Reproducidas:", bg="#0c131a", fg = "white")
+        self.played_songs_label.place(x="10", y="100")
 
-        self.played_songs_display = scrolledtext.ScrolledText(root, width=40, height=5)
-        self.played_songs_display.pack()
+        self.played_songs_display = scrolledtext.ScrolledText(panelImagenArtista, width=83, height=5, bg="#0c131a", fg="white")
+        self.played_songs_display.place(x="10", y="10")
 
     def play_pause_toggle(self):
         if self.playing:
