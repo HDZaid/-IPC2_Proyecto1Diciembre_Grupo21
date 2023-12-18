@@ -60,6 +60,7 @@ class MainWindow(QMainWindow):
         
         button_repeat = QPushButton()
         button_repeat.setObjectName('button_repeat')
+        button_repeat.clicked.connect(self.repeat_song)
         button_before = QPushButton()
         button_before.setObjectName('button_before')
         self.button_play = QPushButton()
@@ -178,6 +179,13 @@ class MainWindow(QMainWindow):
             next_row = (current_row + 1) % self.songs_list.count()
             self.songs_list.setCurrentRow(next_row)
             self.handle_song_selection()
+            
+    def repeat_song(self):
+        if self.player is not None:
+            self.player.setPosition(0)  
+            if self.playing_reproductor:
+                self.player.play()
+
         
     def media_status_changed(self, status):
         print('status', status)
