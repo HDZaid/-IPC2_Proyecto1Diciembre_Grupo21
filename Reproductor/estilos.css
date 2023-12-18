@@ -29,7 +29,7 @@ QTabBar::tab{
 
 QPushButton#button_repeat{
     background-color: gray;
-    image: url(Reproductor/recursos/imagenes/iconoRepeat.png);
+    image: url(recursos/imagenes/iconoRepeat.png);
     border-radius: 20px;
     padding: 7px;
 }
@@ -40,7 +40,7 @@ QPushButton#button_repeat:pressed{
 
 QPushButton#button_before{
     background-color: gray;
-    image: url(Reproductor/recursos/imagenes/botonAnterior.png);
+    image: url(recursos/imagenes/botonAnterior.png);
     border-radius: 20px;
     padding: 7px;
 }
@@ -51,7 +51,7 @@ QPushButton#button_before:pressed{
 
 QPushButton#button_play{
     background-color: gray;
-    image: url(Reproductor/recursos/imagenes/iconoPlay.png);
+    image: url(recursos/imagenes/iconoPlay.png);
     border-radius: 25px;
     padding: 7px;
 }
@@ -62,7 +62,7 @@ QPushButton#button_play:pressed{
 
 QPushButton#button_next{
     background-color: gray;
-    image: url(Reproductor/recursos/imagenes/botonSiguiente.png);
+    image: url(recursos/imagenes/botonSiguiente.png);
     border-radius: 20px;
     padding: 7px;
 }
@@ -73,7 +73,7 @@ QPushButton#button_next:pressed{
 
 QPushButton#button_random{
     background-color: gray;
-    image: url(Reproductor/recursos/imagenes/botonAleatorio.png);
+    image: url(recursos/imagenes/botonAleatorio.png);
     border-radius: 20px;
     padding: 7px;
 }
