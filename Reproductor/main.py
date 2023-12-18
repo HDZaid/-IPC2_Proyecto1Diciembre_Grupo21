@@ -5,10 +5,9 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QLabel, QPushButton, QSt
                              QListWidgetItem)
 
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
-from PyQt6.QtCore import QUrl
-
+from PyQt6.QtCore import QUrl, Qt, QStandardPaths
 from PyQt6.QtGui import QPixmap, QAction, QKeySequence, QIcon
-from PyQt6.QtCore import Qt, QStandardPaths
+
 
 class MainWindow(QMainWindow):
     
