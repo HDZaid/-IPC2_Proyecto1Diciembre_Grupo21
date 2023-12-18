@@ -2,7 +2,13 @@
     <cancion nombre="BOMMBAYAH">
         <artista>"BLACKPINK"</artista>
         <album>"IN YOUR AREA"</album>
-        <imagen>"Reproductor/recursos/imagenes/inYourArea.jpg"</imagen>
-        <ruta>"C:\Users\david\OneDrive\Documentos\USAC\2023\Vaqueras 2 2023\IPC2\Proyecto01\PruebaMiReproductor\Reproductor\recursos\musica\BLACKPINK - BOOMBAYAH.mp3"</ruta>
+        <imagen>"Reproductor/recursos/imagenes/inYourArea.jpeg"</imagen>
+        <ruta>"recursos/musica/BLACKPINK - BOOMBAYAH.mp3"</ruta>
+    </cancion>
+    <cancion nombre="AS IF ITS YOUR LAST">
+        <artista>"BLACKPINK"</artista>
+        <album>"IN YOUR AREA"</album>
+        <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
+        <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
     </cancion>
 </biblioteca>
