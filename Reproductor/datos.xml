@@ -11,4 +11,12 @@
         <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
         <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
     </cancion>
+    <cancion nombre="Come 2gether">
+        <artista>"Ooyy"</artista>
+        <album>"Epidemic Electronic"</album>
+        <imagen>"recursos/imagenes/come2gether.jpeg"</imagen>
+        <ruta>"recursos/musica/Ooyy Come 2gether.mp3"</ruta>
+    </cancion>
+
+    
 </biblioteca>
