@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
         self.current_music_folder = ""
-        with open('Reproductor/estilos.css','r') as file:
+        with open('estilos.css','r') as file:
             style = file.read()
         self.setStyleSheet(style)
         self.player = None
@@ -55,7 +55,7 @@ class MainWindow(QMainWindow):
         buttons_h_box = QHBoxLayout()
         
         song_image = QLabel()
-        pixmap = QPixmap("Reproductor/recursos/imagenes/iconoMusica01.png").scaled(500,500)  
+        pixmap = QPixmap("recursos/imagenes/iconoMusica01.png").scaled(500,500)  
         song_image.setPixmap(pixmap)
         song_image.setScaledContents(True)
         
@@ -135,7 +135,7 @@ class MainWindow(QMainWindow):
     def open_folder_music(self):
         initial_dir = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.MusicLocation)
         self.current_music_folder = QFileDialog.getExistingDirectory(None, "Seleccione una carpeta", initial_dir)
-        icon = QIcon("Reproductor/recursos/imagenes/iconoPlay.png")
+        icon = QIcon("recursos/imagenes/iconoPlay.png")
         for archivo in os.listdir( self.current_music_folder):
             ruta_archivo = os.path.join( self.current_music_folder, archivo)
             if ruta_archivo.endswith(".mp3"):
@@ -156,11 +156,11 @@ class MainWindow(QMainWindow):
     def play_pause_song(self):
         if self.player is not None:
             if self.playing_reproductor:
-                self.button_play.setStyleSheet("image: url(Reproductor/recursos/imagenes/botonPausa.png);")
+                self.button_play.setStyleSheet("image: url(recursos/imagenes/botonPausa.png);")
                 self.player.pause()
                 self.playing_reproductor = False
             else:
-                self.button_play.setStyleSheet("image: url(Reproductor/recursos/imagenes/iconoPlay.png);")
+                self.button_play.setStyleSheet("image: url(recursos/imagenes/iconoPlay.png);")
                 self.player.play()
                 self.playing_reproductor = True
         else:
