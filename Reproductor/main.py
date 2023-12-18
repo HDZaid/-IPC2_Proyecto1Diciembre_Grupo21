@@ -1,5 +1,6 @@
 import sys
 import os
+import random
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QLabel, QPushButton, QStatusBar, QTabWidget,
                              QWidget, QHBoxLayout, QVBoxLayout, QDockWidget, QListWidget, QFileDialog,
                              QListWidgetItem)
@@ -69,9 +70,10 @@ class MainWindow(QMainWindow):
         self.button_play.clicked.connect(self.play_pause_song)
         button_next = QPushButton()
         button_next.setObjectName('button_next')
-        button_random = QPushButton()
         button_next.clicked.connect(self.play_next_song)
+        button_random = QPushButton()
         button_random.setObjectName('button_random')
+        button_random.clicked.connect(self.play_random_song)
         button_repeat.setFixedSize(40,40)
         button_before.setFixedSize(40,40)
         self.button_play.setFixedSize(50,50)
@@ -185,6 +187,12 @@ class MainWindow(QMainWindow):
             self.player.setPosition(0)  
             if self.playing_reproductor:
                 self.player.play()
+                
+    def play_random_song(self):
+        if self.songs_list.count() > 0:
+            random_row = random.randint(0, self.songs_list.count() - 1)
+            self.songs_list.setCurrentRow(random_row)
+            self.handle_song_selection()
 
         
     def media_status_changed(self, status):
