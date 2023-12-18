@@ -1,0 +1,89 @@
+QMainWindow {
+    
+    background-color: darkcyan;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+QDockWidget{
+    background: rgba(0,0,0,0.5);
+    color: white;
+    font-weight: bold;
+}
+
+QListWidget{
+    background: rgba(0,0,0,0.5);
+    color: white;
+}
+
+QTabWidget::pane {
+    background: rgba(255,255,255,0.1);
+    border: 0;
+}
+
+QTabBar::tab{
+    background-color: rgba(177, 177, 177, 0.5);
+    color: white;
+    font-weight: bold;
+}
+
+QPushButton#button_repeat{
+    background-color: gray;
+    image: url(Reproductor/recursos/imagenes/iconoRepeat.png);
+    border-radius: 20px;
+    padding: 7px;
+}
+
+QPushButton#button_repeat:pressed{
+    background-color: white;
+}
+
+QPushButton#button_before{
+    background-color: gray;
+    image: url(Reproductor/recursos/imagenes/botonAnterior.png);
+    border-radius: 20px;
+    padding: 7px;
+}
+
+QPushButton#button_before:pressed{
+    background-color: white;
+}
+
+QPushButton#button_play{
+    background-color: gray;
+    image: url(Reproductor/recursos/imagenes/iconoPlay.png);
+    border-radius: 25px;
+    padding: 7px;
+}
+
+QPushButton#button_play:pressed{
+    background-color: white;
+}
+
+QPushButton#button_next{
+    background-color: gray;
+    image: url(Reproductor/recursos/imagenes/botonSiguiente.png);
+    border-radius: 20px;
+    padding: 7px;
+}
+
+QPushButton#button_next:pressed{
+    background-color: white;
+}
+
+QPushButton#button_random{
+    background-color: gray;
+    image: url(Reproductor/recursos/imagenes/botonAleatorio.png);
+    border-radius: 20px;
+    padding: 7px;
+}
+
+QPushButton#button_random:pressed{
+    background-color: white;
+}
+
+QStatusBar{
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+}
