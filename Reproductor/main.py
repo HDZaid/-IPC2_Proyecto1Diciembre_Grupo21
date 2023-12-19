@@ -1,19 +1,14 @@
-import random
 import sys
 import os
+import random
 from xml.etree import ElementTree as ET
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QLabel, QPushButton, QStatusBar, QTabWidget,
                              QWidget, QHBoxLayout, QVBoxLayout, QDockWidget, QListWidget, QFileDialog,
                              QListWidgetItem)
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl, Qt, QStandardPaths
-from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence
-from Cancion import Cancion
-from ListaDoble import ListaDoble
-
 from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence, QImageReader
 from generar_reporte import * #ulimas modificaciones
-
 
 class MainWindow(QMainWindow):
     
@@ -23,12 +18,14 @@ class MainWindow(QMainWindow):
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
         self.current_music_folder = ""
-        self.lista_canciones = ListaDoble()
         with open('estilos.css', 'r') as file:
             style = file.read()
         self.setStyleSheet(style)
         self.player = None
         self.playing_reproductor = False
+        # Prueba para informacion de las canciones
+        self.canciones_info = {}
+        self.connect_signals()
         
         
     def initialize_ui(self):
@@ -40,12 +37,20 @@ class MainWindow(QMainWindow):
         self.create_menu()
         self.show()
         
+    # Agregando las clases nuevas de la info
+    def connect_signals(self):
+        self.songs_list.itemClicked.connect(self.song_selected)
+        
+    def song_selected(self, item):
+        selected_song = item.text()
+        self.show_song_info(selected_song)
+        
     def generate_main_window(self):
         tab_bar = QTabWidget(self)
         self.reproductor_container = QWidget()
         self.settings_container = QWidget()
         tab_bar.addTab(self.reproductor_container, "Reproductor")
-        tab_bar.addTab(self.settings_container, "Settings")
+        tab_bar.addTab(self.settings_container, "Reportes")
         
         self.generate_reproductor_tab()
         self.generate_settings_tab()
@@ -66,6 +71,9 @@ class MainWindow(QMainWindow):
         song_image.setPixmap(pixmap)
         song_image.setScaledContents(True)
         
+        button_quitar_cancion = QPushButton()
+        button_quitar_cancion.setObjectName('button_quitar_cancion')
+        button_quitar_cancion.clicked.connect(self.remove_selected_song)
         button_repeat = QPushButton()
         button_repeat.setObjectName('button_repeat')
         button_repeat.clicked.connect(self.repeat_song)
@@ -81,16 +89,22 @@ class MainWindow(QMainWindow):
         button_random = QPushButton()
         button_random.setObjectName('button_random')
         button_random.clicked.connect(self.play_random_song)
+        button_favoritos = QPushButton()
+        button_favoritos.setObjectName('button_favoritos')
+        button_quitar_cancion.setFixedSize(40, 40)
         button_repeat.setFixedSize(40, 40)
         button_before.setFixedSize(40, 40)
         self.button_play.setFixedSize(50, 50)
         button_next.setFixedSize(40, 40)
         button_random.setFixedSize(40, 40)
+        button_favoritos.setFixedSize(40, 40)
+        buttons_h_box.addWidget(button_quitar_cancion)
         buttons_h_box.addWidget(button_repeat)
         buttons_h_box.addWidget(button_before)
         buttons_h_box.addWidget(self.button_play)
         buttons_h_box.addWidget(button_next)
         buttons_h_box.addWidget(button_random)
+        buttons_h_box.addWidget(button_favoritos)
         buttons_container = QWidget()
         buttons_container.setLayout(buttons_h_box)
         
@@ -100,7 +114,22 @@ class MainWindow(QMainWindow):
         self.reproductor_container.setLayout(main_v_box)
         
     def generate_settings_tab(self):
-        pass  
+        main_v_box = QVBoxLayout()
+    
+        button_generate_html_report = QPushButton("Generar Reporte HTML")
+        button_generate_html_report.clicked.connect(self.generate_html_report)
+    
+        button_generate_graphviz_report = QPushButton("Generar Reporte Graphviz")
+        button_generate_graphviz_report.clicked.connect(self.generate_graphviz_report)
+    
+        main_v_box.addWidget(button_generate_html_report)
+        main_v_box.addWidget(button_generate_graphviz_report)
+
+
+        self.settings_container.setLayout(main_v_box)
+        
+        button_generate_html_report.clicked.connect(self.generate_html_report)
+        button_generate_graphviz_report.clicked.connect(self.generate_graphviz_report)
     
     def create_action(self):
         self.listar_musica_action = QAction('Listar musica', self, checkable=True)
@@ -108,6 +137,12 @@ class MainWindow(QMainWindow):
         self.listar_musica_action.setStatusTip("Aqui puede listar o no la música a reproducir")
         self.listar_musica_action.triggered.connect(self.list_music)
         self.listar_musica_action.setChecked(True)
+        
+        self.listar_musica_favorita_action = QAction('Listar musica', self, checkable=True)
+        self.listar_musica_favorita_action.setShortcut(QKeySequence("Ctrl+F"))
+        self.listar_musica_favorita_action.setStatusTip("Aqui van sus canciones favoritas")
+        self.listar_musica_favorita_action.triggered.connect(self.list_music)
+        self.listar_musica_favorita_action.setChecked(True)
         
         self.open_xml_file_action = QAction('Abrir Archivo XML', self)
         self.open_xml_file_action.setShortcut(QKeySequence("Ctrl+O"))
@@ -117,13 +152,20 @@ class MainWindow(QMainWindow):
     def create_menu(self):
         self.menuBar()
         
-        menu_file = self.menuBar().addMenu("File")
+        menu_file = self.menuBar().addMenu("Archivo")
         menu_file.addAction(self.open_xml_file_action)
         
-        menu_view = self.menuBar().addMenu("View")
+        menu_view = self.menuBar().addMenu("Listas")
         menu_view.addAction(self.listar_musica_action)
+        menu_view.addAction(self.listar_musica_favorita_action)
         
     def create_dock(self):
+        
+        self.song_info_label = QLabel("Información de la canción:")
+        self.song_label = QLabel("Canción:")
+        self.artist_label = QLabel("Artista:")
+        self.album_label = QLabel("Album:")
+        #-------------------------------
         self.songs_list = QListWidget()
         self.dock = QDockWidget()
         self.dock.setWindowTitle("Lista de canciones")
@@ -131,9 +173,34 @@ class MainWindow(QMainWindow):
             Qt.DockWidgetArea.LeftDockWidgetArea | 
             Qt.DockWidgetArea.RightDockWidgetArea
         )
+        
+        #-----------------------------------
+        info_layout = QVBoxLayout()
+        info_layout.addWidget(self.song_info_label)
+        info_layout.addWidget(self.song_label)
+        info_layout.addWidget(self.artist_label)
+        info_layout.addWidget(self.album_label)
+
+        dock_layout = QVBoxLayout()
+        dock_layout.addLayout(info_layout)
+        dock_layout.addWidget(self.songs_list)
+
+        dock_widget = QWidget()
+        dock_widget.setLayout(dock_layout)
+        
+        
         self.songs_list.itemSelectionChanged.connect(self.handle_song_selection)
-        self.dock.setWidget(self.songs_list)
+        self.dock.setWidget(dock_widget)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock)
+    
+    # Nueva funcion para ver la informacion de la lista
+    def show_song_info(self, selected_song):
+        song_info = self.canciones_info.get(selected_song)
+
+        if song_info:
+            self.song_label.setText(f'Canción: {selected_song}')
+            self.artist_label.setText(f'Artista: {song_info["artista"]}')
+            self.album_label.setText(f'Álbum: {song_info["album"]}')
     
     def list_music(self):
         if self.listar_musica_action.isChecked():
@@ -174,9 +241,12 @@ class MainWindow(QMainWindow):
                 imagen = cancion_element.find("imagen").text
                 ruta = cancion_element.find("ruta").text
 
-                cancion = Cancion(nombre, artista, album, imagen, ruta)
-                self.lista_canciones.agregar_cancion(cancion)
-
+                artista = artista if artista is not None else "Desconocido"
+                album = album if album is not None else "Desconocido"
+                ruta = ruta if ruta is not None else ""
+                #nueva_cancion = Cancion(nombre, artista, album, imagen, ruta) # ERRORES 
+                #self.lista_canciones.agregar_cancion(nueva_cancion) # ERRORES
+                self.canciones_info[nombre] = {'artista': artista, 'album': album, 'ruta': ruta}
                 item = QListWidgetItem(nombre)
                 item.setIcon(icon)
                 self.songs_list.addItem(item)
@@ -234,6 +304,21 @@ class MainWindow(QMainWindow):
             self.handle_song_selection()
 
         
+    def remove_selected_song(self):
+        selected_item = self.songs_list.currentItem()
+        if selected_item:
+            row = self.songs_list.currentRow()
+            self.songs_list.takeItem(row)
+    
+    
+    def generate_html_report(self):
+        pass
+
+
+    def generate_graphviz_report(self):
+        pass
+
+    
     def media_status_changed(self, status):
         print('status', status)
         if status == QMediaPlayer.MediaStatus.LoadedMedia:
@@ -243,27 +328,26 @@ class MainWindow(QMainWindow):
         selected_item = self.songs_list.currentItem()
         if selected_item:
             song_name = selected_item.data(0)
-            selected_node = self.lista_canciones.obtener_nodo_por_nombre(song_name)
-            if selected_node:
-                song_folder_path = os.path.join(self.current_music_folder, selected_node.cancion.ruta)
-                self.create_player()
-                source = QUrl.fromLocalFile(song_folder_path)
-                self.player.setSource(source)
-                self.playing_reproductor = True
-
             song_folder_path = os.path.join( self.current_music_folder, song_name)
             self.create_player()
             source = QUrl.fromLocalFile(song_folder_path)
             self.player.setSource(source)
             self.playing_reproductor = True
+<<<<<<< HEAD
 
     def retonarLista(self):
         return self.lista_canciones    
+=======
+            
+        
+        
+>>>>>>> 25ecdf6c5ed7c8c10bd5af9cb6028b5b0dfd4b8b
     
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
+<<<<<<< HEAD
     
     #codigo para genera el archivo dot
     listaCanciones = MainWindow()
@@ -275,3 +359,6 @@ if __name__ == '__main__':
 
         
         
+=======
+    sys.exit(app.exec())
+>>>>>>> 25ecdf6c5ed7c8c10bd5af9cb6028b5b0dfd4b8b

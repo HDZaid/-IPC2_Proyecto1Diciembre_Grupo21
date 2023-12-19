@@ -82,8 +82,31 @@ QPushButton#button_random:pressed{
     background-color: white;
 }
 
+QPushButton#button_quitar_cancion{
+    background-color: gray;
+    image: url(recursos/imagenes/botonQuitar.png);
+    border-radius: 20px;
+    padding: 7px;
+}
+
+QPushButton#button_quitar_cancion:pressed{
+    background-color: white;
+}
+
+QPushButton#button_favoritos{
+    background-color: gray;
+    image: url(recursos/imagenes/botonFavoritos.png);
+    border-radius: 20px;
+    padding: 7px;
+}
+
+QPushButton#button_favoritos:pressed{
+    background-color: white;
+}
+
 QStatusBar{
     background-color: gray;
     color: white;
     font-weight: bold;
 }
+
