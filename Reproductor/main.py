@@ -29,6 +29,9 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(style)
         self.player = None
         self.playing_reproductor = False
+        # Prueba para informacion de las canciones
+        self.canciones_info = {}
+        self.connect_signals()
         
         
     def initialize_ui(self):
@@ -39,6 +42,14 @@ class MainWindow(QMainWindow):
         self.create_action()
         self.create_menu()
         self.show()
+        
+    # Agregando las clases nuevas de la info
+    def connect_signals(self):
+        self.songs_list.itemClicked.connect(self.song_selected)
+        
+    def song_selected(self, item):
+        selected_song = item.text()
+        self.show_song_info(selected_song)
         
     def generate_main_window(self):
         tab_bar = QTabWidget(self)
@@ -124,6 +135,12 @@ class MainWindow(QMainWindow):
         menu_view.addAction(self.listar_musica_action)
         
     def create_dock(self):
+        
+        self.song_info_label = QLabel("Información de la canción:")
+        self.song_label = QLabel("Canción:")
+        self.artist_label = QLabel("Artista:")
+        self.album_label = QLabel("Album:")
+        #-------------------------------
         self.songs_list = QListWidget()
         self.dock = QDockWidget()
         self.dock.setWindowTitle("Lista de canciones")
@@ -131,9 +148,34 @@ class MainWindow(QMainWindow):
             Qt.DockWidgetArea.LeftDockWidgetArea | 
             Qt.DockWidgetArea.RightDockWidgetArea
         )
+        
+        #-----------------------------------
+        info_layout = QVBoxLayout()
+        info_layout.addWidget(self.song_info_label)
+        info_layout.addWidget(self.song_label)
+        info_layout.addWidget(self.artist_label)
+        info_layout.addWidget(self.album_label)
+
+        dock_layout = QVBoxLayout()
+        dock_layout.addLayout(info_layout)
+        dock_layout.addWidget(self.songs_list)
+
+        dock_widget = QWidget()
+        dock_widget.setLayout(dock_layout)
+        
+        
         self.songs_list.itemSelectionChanged.connect(self.handle_song_selection)
-        self.dock.setWidget(self.songs_list)
+        self.dock.setWidget(dock_widget)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock)
+    
+    # Nueva funcion para ver la informacion de la lista
+    def show_song_info(self, selected_song):
+        song_info = self.canciones_info.get(selected_song)
+
+        if song_info:
+            self.song_label.setText(f'Canción: {selected_song}')
+            self.artist_label.setText(f'Artista: {song_info["artista"]}')
+            self.album_label.setText(f'Álbum: {song_info["album"]}')
     
     def list_music(self):
         if self.listar_musica_action.isChecked():
@@ -164,8 +206,12 @@ class MainWindow(QMainWindow):
                 imagen = cancion_element.find("imagen").text
                 ruta = cancion_element.find("ruta").text
 
+                artista = artista if artista is not None else "Desconocido"
+                album = album if album is not None else "Desconocido"
+                ruta = ruta if ruta is not None else ""
                 cancion = Cancion(nombre, artista, album, imagen, ruta)
                 self.lista_canciones.agregar_cancion(cancion)
+                self.canciones_info[nombre] = {'artista': artista, 'album': album, 'ruta': ruta}
 
                 item = QListWidgetItem(nombre)
                 item.setIcon(icon)
