@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QLabel, QPushButton, QSt
                              QListWidgetItem)
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl, Qt, QStandardPaths
-from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence
+from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence, QImageReader
 
 
 class MainWindow(QMainWindow):
@@ -229,6 +229,8 @@ class MainWindow(QMainWindow):
             self.player.setSource(source)
             self.playing_reproductor = True
         
+        
+    
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
