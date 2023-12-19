@@ -14,7 +14,7 @@
     <cancion nombre="Come 2gether">
         <artista>"Ooyy"</artista>
         <album>"Epidemic Electronic"</album>
-        <imagen>"recursos/imagenes/come2gether.jpeg"</imagen>
+        <imagen>"recursos/imagenes/iconoRepeat.png"</imagen>
         <ruta>"recursos/musica/Ooyy Come 2gether.mp3"</ruta>
     </cancion>
 
