@@ -60,6 +60,9 @@ class MainWindow(QMainWindow):
         song_image.setPixmap(pixmap)
         song_image.setScaledContents(True)
         
+        button_quitar_cancion = QPushButton()
+        button_quitar_cancion.setObjectName('button_quitar_cancion')
+        button_quitar_cancion.clicked.connect(self.remove_selected_song)
         button_repeat = QPushButton()
         button_repeat.setObjectName('button_repeat')
         button_repeat.clicked.connect(self.repeat_song)
@@ -75,16 +78,22 @@ class MainWindow(QMainWindow):
         button_random = QPushButton()
         button_random.setObjectName('button_random')
         button_random.clicked.connect(self.play_random_song)
+        button_favoritos = QPushButton()
+        button_favoritos.setObjectName('button_favoritos')
+        button_quitar_cancion.setFixedSize(40, 40)
         button_repeat.setFixedSize(40, 40)
         button_before.setFixedSize(40, 40)
         self.button_play.setFixedSize(50, 50)
         button_next.setFixedSize(40, 40)
         button_random.setFixedSize(40, 40)
+        button_favoritos.setFixedSize(40, 40)
+        buttons_h_box.addWidget(button_quitar_cancion)
         buttons_h_box.addWidget(button_repeat)
         buttons_h_box.addWidget(button_before)
         buttons_h_box.addWidget(self.button_play)
         buttons_h_box.addWidget(button_next)
         buttons_h_box.addWidget(button_random)
+        buttons_h_box.addWidget(button_favoritos)
         buttons_container = QWidget()
         buttons_container.setLayout(buttons_h_box)
         
@@ -215,6 +224,12 @@ class MainWindow(QMainWindow):
             self.handle_song_selection()
 
         
+    def remove_selected_song(self):
+        selected_item = self.songs_list.currentItem()
+        if selected_item:
+            row = self.songs_list.currentRow()
+            self.songs_list.takeItem(row)
+    
     def media_status_changed(self, status):
         print('status', status)
         if status == QMediaPlayer.MediaStatus.LoadedMedia:
