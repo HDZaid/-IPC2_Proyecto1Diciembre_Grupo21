@@ -24,6 +24,7 @@ class MainWindow(QMainWindow):
         self.player = None
         self.playing_reproductor = False
         
+        
     def initialize_ui(self):
         self.setGeometry(100, 100, 800, 800)
         self.setWindowTitle("Reproductor de música")
@@ -228,6 +229,7 @@ class MainWindow(QMainWindow):
             source = QUrl.fromLocalFile(song_folder_path)
             self.player.setSource(source)
             self.playing_reproductor = True
+            
         
         
     
@@ -237,5 +239,4 @@ if __name__ == '__main__':
     window = MainWindow()
     sys.exit(app.exec())
 
-        
-        
+  
