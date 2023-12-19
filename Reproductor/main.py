@@ -333,32 +333,12 @@ class MainWindow(QMainWindow):
             source = QUrl.fromLocalFile(song_folder_path)
             self.player.setSource(source)
             self.playing_reproductor = True
-<<<<<<< HEAD
-
-    def retonarLista(self):
-        return self.lista_canciones    
-=======
             
         
         
->>>>>>> 25ecdf6c5ed7c8c10bd5af9cb6028b5b0dfd4b8b
     
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
-<<<<<<< HEAD
-    
-    #codigo para genera el archivo dot
-    listaCanciones = MainWindow()
-    listaCanciones = listaCanciones.retonarLista()
-    generar_grafo(listaCanciones, "reporteGrap.dot")
-    #________________________
-    
     sys.exit(app.exec())
-
-        
-        
-=======
-    sys.exit(app.exec())
->>>>>>> 25ecdf6c5ed7c8c10bd5af9cb6028b5b0dfd4b8b
