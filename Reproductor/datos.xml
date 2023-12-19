@@ -2,7 +2,7 @@
     <cancion nombre="BOMMBAYAH">
         <artista>"BLACKPINK"</artista>
         <album>"IN YOUR AREA"</album>
-        <imagen>"Reproductor/recursos/imagenes/inYourArea.jpeg"</imagen>
+        <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
         <ruta>"recursos/musica/BLACKPINK - BOOMBAYAH.mp3"</ruta>
     </cancion>
     <cancion nombre="AS IF ITS YOUR LAST">
