@@ -11,6 +11,9 @@ from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence
 from Cancion import Cancion
 from ListaDoble import ListaDoble
 
+from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence, QImageReader
+
+
 
 class MainWindow(QMainWindow):
     
@@ -26,6 +29,7 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(style)
         self.player = None
         self.playing_reproductor = False
+        
         
     def initialize_ui(self):
         self.setGeometry(100, 100, 800, 800)
@@ -236,12 +240,19 @@ class MainWindow(QMainWindow):
                 source = QUrl.fromLocalFile(song_folder_path)
                 self.player.setSource(source)
                 self.playing_reproductor = True
+
+            song_folder_path = os.path.join( self.current_music_folder, song_name)
+            self.create_player()
+            source = QUrl.fromLocalFile(song_folder_path)
+            self.player.setSource(source)
+            self.playing_reproductor = True
+
         
+    
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
     sys.exit(app.exec())
 
-        
-        
+  
