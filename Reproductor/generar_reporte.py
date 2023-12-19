@@ -2,7 +2,7 @@
 from graphviz import Digraph    
     
 def generar_grafo(canciones, nombre_archivo_dot):
-    dot = Digraph(comment='Grafo de Cancionsssss')
+    dot = Digraph(comment='Grafo de canciones en la lista')
 
     actual = canciones.head
     while actual:

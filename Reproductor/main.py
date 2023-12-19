@@ -12,7 +12,7 @@ from Cancion import Cancion
 from ListaDoble import ListaDoble
 
 from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence, QImageReader
-
+from generar_reporte import * #ulimas modificaciones
 
 
 class MainWindow(QMainWindow):
@@ -149,6 +149,16 @@ class MainWindow(QMainWindow):
 
         if file_path:
             self.process_xml(file_path)
+        #
+        # 
+        # generar reporte Graphviz  
+        
+        # listaCanciones = MainWindow()
+        # listaCanciones = listaCanciones.retonarLista()
+        # generar_grafo(listaCanciones, "reporteGrap.dot")
+
+        # 
+        #     
 
     def process_xml(self, xml_file):
         try:
@@ -247,12 +257,20 @@ class MainWindow(QMainWindow):
             self.player.setSource(source)
             self.playing_reproductor = True
 
-        
+    def retonarLista(self):
+        return self.lista_canciones    
     
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
+    
+    #codigo para genera el archivo dot
+    listaCanciones = MainWindow()
+    listaCanciones = listaCanciones.retonarLista()
+    generar_grafo(listaCanciones, "reporteGrap.dot")
+    #________________________
+    
     sys.exit(app.exec())
 
         
