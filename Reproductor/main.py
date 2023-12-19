@@ -1,18 +1,13 @@
-import random
 import sys
 import os
+import random
 from xml.etree import ElementTree as ET
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QLabel, QPushButton, QStatusBar, QTabWidget,
                              QWidget, QHBoxLayout, QVBoxLayout, QDockWidget, QListWidget, QFileDialog,
                              QListWidgetItem)
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl, Qt, QStandardPaths
-from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence
-from Cancion import Cancion
-from ListaDoble import ListaDoble
-
 from PyQt6.QtGui import QPixmap, QIcon, QAction, QKeySequence, QImageReader
-
 
 
 class MainWindow(QMainWindow):
@@ -23,7 +18,6 @@ class MainWindow(QMainWindow):
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
         self.current_music_folder = ""
-        self.lista_canciones = ListaDoble()
         with open('estilos.css', 'r') as file:
             style = file.read()
         self.setStyleSheet(style)
@@ -164,9 +158,6 @@ class MainWindow(QMainWindow):
                 imagen = cancion_element.find("imagen").text
                 ruta = cancion_element.find("ruta").text
 
-                cancion = Cancion(nombre, artista, album, imagen, ruta)
-                self.lista_canciones.agregar_cancion(cancion)
-
                 item = QListWidgetItem(nombre)
                 item.setIcon(icon)
                 self.songs_list.addItem(item)
@@ -233,20 +224,13 @@ class MainWindow(QMainWindow):
         selected_item = self.songs_list.currentItem()
         if selected_item:
             song_name = selected_item.data(0)
-            selected_node = self.lista_canciones.obtener_nodo_por_nombre(song_name)
-            if selected_node:
-                song_folder_path = os.path.join(self.current_music_folder, selected_node.cancion.ruta)
-                self.create_player()
-                source = QUrl.fromLocalFile(song_folder_path)
-                self.player.setSource(source)
-                self.playing_reproductor = True
-
             song_folder_path = os.path.join( self.current_music_folder, song_name)
             self.create_player()
             source = QUrl.fromLocalFile(song_folder_path)
             self.player.setSource(source)
             self.playing_reproductor = True
-
+            
+        
         
     
         
@@ -254,6 +238,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
     sys.exit(app.exec())
-
-        
-        
