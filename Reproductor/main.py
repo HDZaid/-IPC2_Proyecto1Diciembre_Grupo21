@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
         self.reproductor_container = QWidget()
         self.settings_container = QWidget()
         tab_bar.addTab(self.reproductor_container, "Reproductor")
-        tab_bar.addTab(self.settings_container, "Settings")
+        tab_bar.addTab(self.settings_container, "Reportes")
         
         self.generate_reproductor_tab()
         self.generate_settings_tab()
@@ -103,7 +103,22 @@ class MainWindow(QMainWindow):
         self.reproductor_container.setLayout(main_v_box)
         
     def generate_settings_tab(self):
-        pass  
+        main_v_box = QVBoxLayout()
+    
+        button_generate_html_report = QPushButton("Generar Reporte HTML")
+        button_generate_html_report.clicked.connect(self.generate_html_report)
+    
+        button_generate_graphviz_report = QPushButton("Generar Reporte Graphviz")
+        button_generate_graphviz_report.clicked.connect(self.generate_graphviz_report)
+    
+        main_v_box.addWidget(button_generate_html_report)
+        main_v_box.addWidget(button_generate_graphviz_report)
+
+
+        self.settings_container.setLayout(main_v_box)
+        
+        button_generate_html_report.clicked.connect(self.generate_html_report)
+        button_generate_graphviz_report.clicked.connect(self.generate_graphviz_report)
     
     def create_action(self):
         self.listar_musica_action = QAction('Listar musica', self, checkable=True)
@@ -111,6 +126,12 @@ class MainWindow(QMainWindow):
         self.listar_musica_action.setStatusTip("Aqui puede listar o no la música a reproducir")
         self.listar_musica_action.triggered.connect(self.list_music)
         self.listar_musica_action.setChecked(True)
+        
+        self.listar_musica_favorita_action = QAction('Listar musica', self, checkable=True)
+        self.listar_musica_favorita_action.setShortcut(QKeySequence("Ctrl+F"))
+        self.listar_musica_favorita_action.setStatusTip("Aqui van sus canciones favoritas")
+        self.listar_musica_favorita_action.triggered.connect(self.list_music)
+        self.listar_musica_favorita_action.setChecked(True)
         
         self.open_xml_file_action = QAction('Abrir Archivo XML', self)
         self.open_xml_file_action.setShortcut(QKeySequence("Ctrl+O"))
@@ -120,11 +141,12 @@ class MainWindow(QMainWindow):
     def create_menu(self):
         self.menuBar()
         
-        menu_file = self.menuBar().addMenu("File")
+        menu_file = self.menuBar().addMenu("Archivo")
         menu_file.addAction(self.open_xml_file_action)
         
-        menu_view = self.menuBar().addMenu("View")
+        menu_view = self.menuBar().addMenu("Listas")
         menu_view.addAction(self.listar_musica_action)
+        menu_view.addAction(self.listar_musica_favorita_action)
         
     def create_dock(self):
         self.songs_list = QListWidget()
@@ -229,6 +251,15 @@ class MainWindow(QMainWindow):
         if selected_item:
             row = self.songs_list.currentRow()
             self.songs_list.takeItem(row)
+    
+    
+    def generate_html_report(self):
+        pass
+
+
+    def generate_graphviz_report(self):
+        pass
+
     
     def media_status_changed(self, status):
         print('status', status)
