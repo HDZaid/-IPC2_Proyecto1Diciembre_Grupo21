@@ -173,76 +173,6 @@ class MainWindow(QMainWindow):
         self.player.mediaStatusChanged.connect(self.media_status_changed)
         self.audioOutpot.setVolume(1.0)
         
-    def play_pause_song(self):
-        if self.player is not None:
-            if self.playing_reproductor:
-                self.button_play.setStyleSheet("image: url(recursos/imagenes/botonPausa.png);")
-                self.player.pause()
-                self.playing_reproductor = False
-            else:
-                self.button_play.setStyleSheet("image: url(recursos/imagenes/iconoPlay.png);")
-                self.player.play()
-                self.playing_reproductor = True
-        else:
-            print("No se ha cargado ninguna canción. Seleccione una canción antes de reproducir.")
-
-    def play_previous_song(self):
-        if self.songs_list.count() > 0:
-            current_row = self.songs_list.currentRow()
-            previous_row = (current_row - 1) % self.songs_list.count()
-            self.songs_list.setCurrentRow(previous_row)
-            self.handle_song_selection()
-    
-    def play_next_song(self):
-        if self.songs_list.count() > 0:
-            current_row = self.songs_list.currentRow()
-            next_row = (current_row + 1) % self.songs_list.count()
-            self.songs_list.setCurrentRow(next_row)
-            self.handle_song_selection()
-            
-    def repeat_song(self):
-        if self.player is not None:
-            self.player.setPosition(0)  
-            if self.playing_reproductor:
-                self.player.play()
-                
-    def play_random_song(self):
-        if self.songs_list.count() > 0:
-            random_row = random.randint(0, self.songs_list.count() - 1)
-            self.songs_list.setCurrentRow(random_row)
-            self.handle_song_selection()
-
-    def media_status_changed(self, status):
-        print('status', status)
-        if status == QMediaPlayer.MediaStatus.LoadedMedia:
-            self.player.play()
-                
-    def handle_song_selection(self):
-        selected_item = self.songs_list.currentItem()
-        if selected_item:
-            song_name = selected_item.data(0)
-            song_folder_path = os.path.join(self.current_music_folder, song_name)
-            self.create_player()
-            source = QUrl.fromLocalFile(song_folder_path)
-            self.player.setSource(source)
-            self.playing_reproductor = True
-        
-        
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    sys.exit(app.exec())
-
-                
-    def create_player(self):
-        if self.player:
-            self.player.deleteLater()
-        self.player = QMediaPlayer()
-        self.audioOutpot = QAudioOutput()
-        self.player.setAudioOutput(self.audioOutpot)
-        self.player.mediaStatusChanged.connect(self.media_status_changed)
-        self.audioOutpot.setVolume(1.0)
-        
         
     def play_pause_song(self):
         if self.player is not None:
@@ -304,3 +234,6 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
     sys.exit(app.exec())
+
+        
+        
