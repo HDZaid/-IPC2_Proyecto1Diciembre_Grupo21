@@ -47,6 +47,96 @@
         <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
         <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
     </cancion>
+    <cancion nombre="The 1">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - The 1.mp3"</ruta>
+    </cancion>
+        <cancion nombre="Exile">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+        <cancion nombre="Seven">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+        <cancion nombre="Illicit Affairs">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+        <cancion nombre="Epiphany">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+        <cancion nombre="Hoax">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+        <cancion nombre="Cardigan">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+        <cancion nombre="August">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+        <cancion nombre="Invisible string">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+    <cancion nombre="Betty">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+    <cancion nombre="the last great american dynasty">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+    <cancion nombre="Mirrorball">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+    <cancion nombre="BThis is me trying">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+    <cancion nombre="Mad Woman">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
+    <cancion nombre="Peace">
+        <artista>"Taylor Swift"</artista>
+        <album>"Folklore"</album>
+        <imagen>"recursos/imagenes/folklore.jpeg"</imagen>
+        <ruta>"recursos/musica/TS - the 1.mp3"</ruta>
+    </cancion>
     <cancion nombre="Come 2gether">
         <artista>"Ooyy"</artista>
         <album>"Epidemic Electronic"</album>

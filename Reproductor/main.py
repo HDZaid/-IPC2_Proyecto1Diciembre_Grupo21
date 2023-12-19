@@ -1,6 +1,7 @@
 import sys
 import os
 import random
+import graphviz
 from xml.etree import ElementTree as ET
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QLabel, QPushButton, QStatusBar, QTabWidget,
                              QWidget, QHBoxLayout, QVBoxLayout, QDockWidget, QListWidget, QFileDialog,
@@ -314,11 +315,8 @@ class MainWindow(QMainWindow):
     def generate_html_report(self):
         pass
 
-
     def generate_graphviz_report(self):
         pass
-
-    
     def media_status_changed(self, status):
         print('status', status)
         if status == QMediaPlayer.MediaStatus.LoadedMedia:
