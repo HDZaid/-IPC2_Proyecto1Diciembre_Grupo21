@@ -11,6 +11,42 @@
         <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
         <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
     </cancion>
+    <cancion nombre="STAY">
+        <artista>"BLACKPINK"</artista>
+        <album>"IN YOUR AREA"</album>
+        <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
+        <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
+    </cancion>
+    <cancion nombre="FOREVER YOUNG">
+        <artista>"BLACKPINK"</artista>
+        <album>"IN YOUR AREA"</album>
+        <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
+        <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
+    </cancion>
+    <cancion nombre="WHISTLE">
+        <artista>"BLACKPINK"</artista>
+        <album>"IN YOUR AREA"</album>
+        <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
+        <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
+    </cancion>
+    <cancion nombre="PLAYING WITH FIRE">
+        <artista>"BLACKPINK"</artista>
+        <album>"IN YOUR AREA"</album>
+        <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
+        <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
+    </cancion>
+    <cancion nombre="DDU-DU DDU-DU">
+        <artista>"BLACKPINK"</artista>
+        <album>"IN YOUR AREA"</album>
+        <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
+        <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
+    </cancion>
+    <cancion nombre="SEE U LATER">
+        <artista>"BLACKPINK"</artista>
+        <album>"IN YOUR AREA"</album>
+        <imagen>"recursos/imagenes/inYourArea.jpeg"</imagen>
+        <ruta>"recursos/musica/BLACKPINK - AS IF ITS YOUR LAST.mp3"</ruta>
+    </cancion>
     <cancion nombre="Come 2gether">
         <artista>"Ooyy"</artista>
         <album>"Epidemic Electronic"</album>
